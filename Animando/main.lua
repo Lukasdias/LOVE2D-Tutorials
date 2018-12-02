@@ -1,16 +1,41 @@
-local anim = require("anim8");
-largura = love.graphics.getWidth();
-altura = love.graphics.getHeight();
+local anim = require("anim8"); -- Requisitando a lib ANIM8
+largura = love.graphics.getWidth(); -- Pegando a largura da tela e armazenando numa variavel --
+altura = love.graphics.getHeight(); -- Pegando a largura da tela e armazenando numa variavel --
 --Importando Lib Anim8--
 --Para implementar as animações--
 function love.load()
 	player = {}
-		player.px = 100
-		player.py = 175
-		player.vel = 100
+		player.px = 100 -- Posição no eixo X
+		player.py = 175 -- Posição no eixo Y
+		player.vel = 100 -- Velocidade de locomoção no eixo X
 		player.imagem = love.graphics.newImage("Sprites/Simon_Andando.png") -- diretorio da imagem a ser utilizada
 		player.grid = anim.newGrid(26, 38, player.imagem:getWidth(), player.imagem:getHeight()) -- Tamanho Exato de cada frame(os dois primeiros parametros) da animação selecionada
+		--[[Parametros da função acima:
+			#1 e #2= altura e largura de cada frame, ou seja
+			Largura da imagem
+			Numeros de frames na horizontal
+			logo a largura do frame será  = LarguradaImagem/nFrames(horizontal)
+			logo a altura do frame será = AlturadaImagem/nFrames(vertical)
+			#3 e #4 função que obtem a lagura e altura da imagem para obter o frames de maneira correta
+			--]]
 		player.anim = anim.newAnimation(player.grid("1-3", 1), 0.1) -- Animação do sprite 1 ao 3 da primeira linha na velociade de 0.1
+		--[[Parametros da função acima:
+		#1 Grid
+		variavel que acabamos de definir contém os frames cortados e separados para o uso
+		#2 Frames
+		em um string coloque quais frames você deseja, ou seja,
+		"1(frame 1)-7(frame 7"
+		isso significa que você deseja que a animação vá do primeiro ao sétimo frame, e fique nesse loop.
+		#3 Linha do frame
+		Alguns sprites podem ter mais de um linha com varios frames esse parametro é para definir de que linha você quer esses sprites
+		Se for linha == 1 então:
+		pegue do primeiro ao setimo frame da primeira linha.
+		#4 Velociade
+			Quanto menor o valor
+				Maior velociade
+			Quanto maior o valor 
+				Menor velocidade
+		--]]	
 end
 
 function love.update( dt )
